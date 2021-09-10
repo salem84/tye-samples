@@ -47,7 +47,7 @@ services:
   env:
   - MIN_NUMBER=1
   - MAX_NUMBER=200
-  - SLEEP_SECONDS=2
+  - INTERVAL_MS=1000
 
 - name: primeqconsumer
   tags:

@@ -36,7 +36,7 @@ func main() {
 
 	minNumber, err := strconv.Atoi(os.Getenv("MIN_NUMBER"))
 	maxNumber, err := strconv.Atoi(os.Getenv("MAX_NUMBER"))
-	sleepSeconds, err := strconv.Atoi(os.Getenv("SLEEP_SECONDS"))
+	sleepSeconds, err := strconv.Atoi(os.Getenv("INTERVAL_MS"))
 
 	for {
 		num := rand.Intn(maxNumber-minNumber+1) + minNumber
@@ -51,7 +51,7 @@ func main() {
 
 		log.Printf("Number %d is Prime: %t", uint64(req.Number), res.IsPrime)
 
-		time.Sleep(time.Duration(sleepSeconds))
+		time.Sleep(time.Duration(sleepSeconds) * time.Millisecond)
 	}
 
 }
