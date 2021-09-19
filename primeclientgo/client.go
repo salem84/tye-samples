@@ -25,6 +25,8 @@ func main() {
 
 	fmt.Printf("Service Address: %s", serviceHost)
 
+	time.Sleep(3 * time.Second)
+
 	connection, err := grpc.Dial(serviceHost, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Could not connect to gRPC Server: %v", err)
@@ -49,7 +51,7 @@ func main() {
 			log.Fatalf("Error when calling IsItPrime: %s", err)
 		}
 
-		log.Printf("Number %d is Prime: %t", uint64(req.Number), res.IsPrime)
+		log.Printf("Number %d is Prime?: %t", uint64(req.Number), res.IsPrime)
 
 		time.Sleep(time.Duration(sleepSeconds) * time.Millisecond)
 	}
