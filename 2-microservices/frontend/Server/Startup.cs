@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using AspNetCore.VersionInfo.Providers;
+using AspNetCore.VersionInfo;
 
 namespace frontend.Server
 {
@@ -25,6 +27,10 @@ namespace frontend.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddVersionInfo()
+                .With<ClrVersionProvider>()
+                .With<EnvironmentVariablesProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +58,7 @@ namespace frontend.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapVersionInfo();
                 endpoints.MapFallbackToFile("index.html");
             });
         }
