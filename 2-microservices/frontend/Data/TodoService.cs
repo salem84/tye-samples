@@ -13,18 +13,18 @@ namespace frontend.Data
     public class TodoService
     {
         private readonly ILogger<TodoService> _logger;
+        private readonly ITodoApiClient _apiClient;
 
-        public TodoService(ILogger<TodoService> logger)
+        public TodoService(ILogger<TodoService> logger, ITodoApiClient apiClient)
         {
             _logger = logger;
+            _apiClient = apiClient;
         }
 
         public async Task<IEnumerable<TodoItemResource>> Get()
         {
             _logger.LogInformation("In front-end");
-            var httpClient = new HttpClient();
-            var client = new api.todoApi.TodoApiClient("https://localhost:5005", httpClient);
-            var todoItems = await client.TodoItemsAllAsync();
+            var todoItems = await _apiClient.TodoItemsAllAsync();
 
             return todoItems.Select(x => new TodoItemResource
             {
@@ -44,14 +44,12 @@ namespace frontend.Data
         public async Task<TodoItemResource> Save([FromBody]TodoItemResource todoItem)
         {
             _logger.LogInformation("In front-end");
-            var httpClient = new HttpClient();
-            var client = new api.todoApi.TodoApiClient("https://localhost:5005", httpClient);
 
             var toSave = new TodoItem
             {
                 Name = todoItem.Name
             };
-            var result = await client.TodoItemsAsync(toSave);
+            var result = await _apiClient.TodoItemsAsync(toSave);
 
             return new TodoItemResource
             {

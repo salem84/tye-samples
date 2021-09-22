@@ -28,7 +28,23 @@ namespace frontend
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+
+            services.AddTransient<WeatherForecastService>();
+            services.AddTransient<PersonService>();
+            services.AddTransient<TodoService>();
+
+            services.AddHttpClient<api.personApi.IPersonApiClient, api.personApi.PersonApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5007");
+            });
+            services.AddHttpClient<api.todoApi.ITodoApiClient, api.todoApi.TodoApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5005");
+            });
+            services.AddHttpClient<api.weatherApi.IWeatherApiClient, api.weatherApi.WeatherApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5003");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
