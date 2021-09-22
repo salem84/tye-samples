@@ -12,18 +12,18 @@ namespace frontend.Data
     public class PersonService
     {
         private readonly ILogger<PersonService> _logger;
+        private readonly IPersonApiClient _apiClient;
 
-        public PersonService(ILogger<PersonService> logger)
+        public PersonService(ILogger<PersonService> logger, IPersonApiClient apiClient)
         {
             _logger = logger;
+            _apiClient = apiClient;
         }
 
         public async Task<IEnumerable<PersonResource>> Get()
         {
             _logger.LogInformation("In front-end");
-            var httpClient = new HttpClient();
-            var client = new api.personApi.PersonApiClient("https://localhost:5007", httpClient);
-            var people = await client.PersonAllAsync();
+            var people = await _apiClient.PersonAllAsync();
 
             return people.Select(x => new PersonResource
             {
@@ -49,11 +49,9 @@ namespace frontend.Data
             .ToArray();
         }
 
-        public async Task<PersonResource> Save([FromBody] PersonResource person)
+        public async Task<PersonResource> Save(PersonResource person)
         {
             _logger.LogInformation("In front-end");
-            var httpClient = new HttpClient();
-            var client = new api.personApi.PersonApiClient("https://localhost:5007", httpClient);
 
             var toSave = new Person
             {
@@ -62,7 +60,7 @@ namespace frontend.Data
                 LastName = person.LastName,
                 Password= person.Password
             };
-            var result = await client.PersonAsync(toSave);
+            var result = await _apiClient.PersonAsync(toSave);
 
             return new PersonResource
             {
