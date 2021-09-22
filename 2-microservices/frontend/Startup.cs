@@ -1,3 +1,5 @@
+using AspNetCore.VersionInfo;
+using AspNetCore.VersionInfo.Providers;
 using frontend.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -45,6 +47,10 @@ namespace frontend
             {
                 client.BaseAddress = new Uri("https://localhost:5003");
             });
+
+            services.AddVersionInfo()
+                .With<ClrVersionProvider>()
+                .With<EnvironmentVariablesProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +76,7 @@ namespace frontend
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapVersionInfo();
             });
         }
     }
