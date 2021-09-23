@@ -1,0 +1,34 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: microservices
+
+registry: registrytye.azurecr.io
+
+ingress:
+  - name: ingress-app
+    bindings:
+      - port: 8080
+    rules:
+      - path: /
+        service: frontend
+      - path: /person
+        service: api-person
+      - path: /todo
+        service: api-todo
+      - path: /weather
+        service: api-weather
+
+services:
+- name: api-person
+  project: api.person/api.person.csproj
+  replicas: 2
+- name: api-todo
+  project: api.todo/api.todo.csproj
+- name: api-weather
+  project: api.weather/api.weather.csproj
+- name: frontend
+  project: frontend/frontend.csproj

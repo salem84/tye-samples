@@ -23,7 +23,7 @@ namespace frontend.Data
 
         public async Task<IEnumerable<TodoItemResource>> Get()
         {
-            _logger.LogInformation("In front-end");
+            _logger.LogInformation("In front-end!!");
             var todoItems = await _apiClient.TodoItemsAllAsync();
 
             return todoItems.Select(x => new TodoItemResource
