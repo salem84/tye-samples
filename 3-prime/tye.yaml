@@ -5,7 +5,8 @@
 #    https://aka.ms/AA7q20u
 #
 name: microservicesapp
-registry: localhost:5000
+registry: tyeregistry.azurecr.io
+
 services:
 - name: primecalculator
   tags:
@@ -24,7 +25,7 @@ services:
   replicas: 2
   env:
   - MIN_NUMBER=1
-  - MAX_NUMBER=10000
+  - MAX_NUMBER=1000000
   - INTERVAL_MS=500
 
 - name: primeclientb
@@ -34,7 +35,7 @@ services:
   replicas: 1
   env:
   - MIN_NUMBER=1
-  - MAX_NUMBER=10000
+  - MAX_NUMBER=1000000
   - INTERVAL_MS=200
 
 - name: primeclientc
