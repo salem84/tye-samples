@@ -23,7 +23,7 @@ namespace frontend.Data
 
         public async Task<IEnumerable<TodoItemResource>> Get()
         {
-            _logger.LogInformation("In front-end!!");
+            _logger.LogInformation("In front-end: get todo items");
             var todoItems = await _apiClient.TodoItemsAllAsync();
 
             return todoItems.Select(x => new TodoItemResource
@@ -43,7 +43,7 @@ namespace frontend.Data
 
         public async Task<TodoItemResource> Save([FromBody]TodoItemResource todoItem)
         {
-            _logger.LogInformation("In front-end");
+            _logger.LogInformation("In front-end: save todo item");
 
             var toSave = new TodoItem
             {
