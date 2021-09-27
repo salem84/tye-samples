@@ -32,7 +32,6 @@ namespace api.person
             services.AddHttpClient<api.clients.ITodoApiClient, api.clients.TodoApiClient>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5005");
-                // client.BaseAddress = Configuration.GetServiceUri("api-todo");
             });
         }
 
