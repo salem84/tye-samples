@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,12 @@ namespace api.person
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api.person", Version = "v1" });
+            });
+
+            services.AddHttpClient<api.clients.ITodoApiClient, api.clients.TodoApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5005");
+                // client.BaseAddress = Configuration.GetServiceUri("api-todo");
             });
         }
 

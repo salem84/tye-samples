@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using api.client;
+using api.clients;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,10 +15,12 @@ namespace api.todo.Controllers
     public class TodoItemsController : ControllerBase
     {
         private readonly TodoContext _context;
+        private readonly IWeatherApiClient _apiClient;
 
-        public TodoItemsController(TodoContext context)
+        public TodoItemsController(TodoContext context, IWeatherApiClient apiClient)
         {
             _context = context;
+            _apiClient = apiClient;
         }
 
         // GET: api/TodoItems
@@ -113,9 +115,7 @@ namespace api.todo.Controllers
         private async Task<WeatherForecast> GetRandomWeatherForecast()
         {
             var rnd = new Random();
-            var httpClient = new HttpClient();
-            var client = new api.client.WeatherApiClient("https://localhost:5003", httpClient);
-            var weatherForecasts = await client.WeatherForecastAsync();
+            var weatherForecasts = await _apiClient.WeatherForecastAsync();
             return weatherForecasts.ToArray()[rnd.Next(0, weatherForecasts.Count())];
         }
 

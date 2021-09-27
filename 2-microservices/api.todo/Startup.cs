@@ -34,6 +34,12 @@ namespace api.todo
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api.todo", Version = "v1" });
             });
+
+            services.AddHttpClient<api.clients.IWeatherApiClient, api.clients.WeatherApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5003");
+                // client.BaseAddress = Configuration.GetServiceUri("api-weather");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using api.clients;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace api.person.Controllers
 {
@@ -15,10 +16,12 @@ namespace api.person.Controllers
     public class PersonController : ControllerBase
     {
         private readonly PersonContext _context;
+        private readonly ITodoApiClient _apiClient;
 
-        public PersonController(PersonContext context)
+        public PersonController(PersonContext context, ITodoApiClient apiClient)
         {
             _context = context;
+            _apiClient = apiClient;
         }
 
         // GET: api/Person
@@ -113,9 +116,7 @@ namespace api.person.Controllers
         private async Task<IEnumerable<TodoItem>> GetRandomTodoItems()
         {
             var rnd = new Random();
-            var httpClient = new HttpClient();
-            var client = new api.clients.TodoApiClient("https://localhost:5005", httpClient);
-            var todoItems = await client.TodoItemsAllAsync();
+            var todoItems = await _apiClient.TodoItemsAllAsync();
             return todoItems.Take(rnd.Next(0, todoItems.Count()));
         }
 

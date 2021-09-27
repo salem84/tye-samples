@@ -5,10 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="..\swagger-todo.json" CodeGenerator="NSwagCSharp" Namespace="api.clients" Link="OpenAPIs\swagger-todo.json" ClassName="TodoApiClient" OutputPath="TodoApiClient.cs" />
+    <OpenApiReference Include="..\swagger-todo.json" CodeGenerator="NSwagCSharp" Namespace="api.clients" Link="OpenAPIs\swagger-todo.json" ClassName="TodoApiClient" OutputPath="TodoApiClient.cs" Options="/GenerateExceptionClasses:true /GenerateClientInterfaces:true /InjectHttpClient:true /UseBaseUrl:false" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.VersionInfo" Version="0.7.0" />
+    <PackageReference Include="Microsoft.Tye.Extensions.Configuration" Version="0.10.0-alpha.21420.1" />
+    
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.0" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />

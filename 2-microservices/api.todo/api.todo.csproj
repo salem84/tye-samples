@@ -5,15 +5,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<OpenApiReference Include="..\swagger-weather.json" Namespace="api.client">
-			<CodeGenerator>NSwagCSharp</CodeGenerator>
-			<Link>OpenAPIs\swagger-weather.json</Link>
-			<ClassName>WeatherApiClient</ClassName>
-			<OutputPath>WeatherApiClient.cs</OutputPath>
-		</OpenApiReference>
+	    <OpenApiReference Include="..\swagger-weather.json" CodeGenerator="NSwagCSharp" Namespace="api.clients" Link="OpenAPIs\swagger-weather.json" ClassName="WeatherApiClient" OutputPath="WeatherApiClient.cs" Options="/GenerateExceptionClasses:true /GenerateClientInterfaces:true /InjectHttpClient:true /UseBaseUrl:false" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AspNetCore.VersionInfo" Version="0.7.0" />
+    	<PackageReference Include="Microsoft.Tye.Extensions.Configuration" Version="0.10.0-alpha.21420.1" />
+    
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" NoWarn="NU1605" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.0" NoWarn="NU1605" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0" />

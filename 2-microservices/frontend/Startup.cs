@@ -38,14 +38,17 @@ namespace frontend
             services.AddHttpClient<api.personApi.IPersonApiClient, api.personApi.PersonApiClient>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5007");
+                // client.BaseAddress = Configuration.GetServiceUri("api-person");
             });
             services.AddHttpClient<api.todoApi.ITodoApiClient, api.todoApi.TodoApiClient>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5005");
+                // client.BaseAddress = Configuration.GetServiceUri("api-todo");
             });
             services.AddHttpClient<api.weatherApi.IWeatherApiClient, api.weatherApi.WeatherApiClient>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5003");
+                // client.BaseAddress = Configuration.GetServiceUri("api-weather");
             });
 
             services.AddVersionInfo()
