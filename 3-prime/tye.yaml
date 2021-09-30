@@ -68,6 +68,7 @@ services:
     - be
   image: redis
   args: "redis-cli -h redis MONITOR"
+  
 - name: rabbitmq
   tags:
     - mw
