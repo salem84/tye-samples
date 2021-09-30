@@ -5,7 +5,6 @@
 #    https://aka.ms/AA7q20u
 #
 name: microservicesapp
-registry: tyeregistry.azurecr.io
 
 services:
 - name: primecalculator
